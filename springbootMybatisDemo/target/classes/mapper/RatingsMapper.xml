@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.RatingsMapper">
+
+    <resultMap type="com.springboot.bean.Ratings" id="ratingsMap">
+             <result property="id" column="id"/>
+             <result property="sellerId" column="seller_id"/>
+             <result property="userId" column="user_id"/>
+             <result property="rateTime" column="rate_time"/>
+             <result property="deliveryTime" column="delivery_time"/>
+             <result property="score" column="score"/>
+             <result property="rateType" column="rate_type"/>
+             <result property="text" column="text"/>
+             <association property="user" resultMap="userMap"></association>
+     </resultMap>
+    <resultMap type="com.springboot.bean.User" id="userMap">
+        <result  property="username" column="username"/>
+        <result  property="avatar" column="avatar"/>
+    </resultMap>
+
+    <select id="queryObject" resultType="com.springboot.bean.Ratings">
+		select
+		`id`,
+		`seller_id`,
+		`user_id`,
+		`rate_time`,
+		`delivery_time`,
+		`score`,
+		`rate_type`,
+		`text`
+		from ratings
+		where id = #{id}
+	</select>
+
+    <select id="queryList" resultMap="ratingsMap">
+        select
+            r.id,
+            r.seller_id,
+            r.user_id,
+            r.rate_time,
+            r.delivery_time,
+            r.score,
+            r.rate_type,
+            r.text,
+             u.username,
+             u.avatar
+        from ratings r,user u
+        WHERE r.user_id = u.id
+
+        <if test="sellerId != null">
+            AND seller_id = #{sellerId}
+        </if>
+
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from ratings
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.springboot.bean.Ratings"  useGeneratedKeys="true" keyProperty="id">
+		insert into ratings(
+		            `seller_id`,
+                	`user_id`,
+        			`rate_time`,
+        			`delivery_time`,
+        			`score`,
+        			`rate_type`,
+        			`text`)
+		values(
+		            #{sellerId},
+                	#{userId},
+        			#{rateTime},
+        			#{deliveryTime},
+        			#{score},
+        			#{rateType},
+        			#{text})
+	</insert>
+    <update id="update" parameterType="com.springboot.bean.Ratings">
+        update ratings
+        <set>
+            <if test="sellerId != null">`seller_id` = #{sellerId}, </if>
+            <if test="userId != null">`user_id` = #{userId}, </if>
+            <if test="rateTime != null">`rate_time` = #{rateTime}, </if>
+            <if test="deliveryTime != null">`delivery_time` = #{deliveryTime}, </if>
+            <if test="score != null">`score` = #{score}, </if>
+            <if test="rateType != null">`rate_type` = #{rateType}, </if>
+            <if test="text != null">`text` = #{text}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from ratings where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from ratings where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,22 @@
+.clear-fix
+  display inline-block
+  &:after
+    display block
+    content '.'
+    height 0
+    line-height 0
+    clear both
+    visibility hidden
+html, body
+  font-weight 400
+  font-family 'Droid Sans', 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5)
+  .border-1px
+    &::after
+      -webkit-transform scaleY(0.8)
+      transform scaleY(0.8)
+@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2)
+  .border-1px
+    &::after
+      -webkit-transform scaleY(0.6)
+      transform scaleY(0.6)

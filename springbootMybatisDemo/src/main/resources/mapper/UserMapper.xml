@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.springboot.dao.UserMapper">
+    <resultMap id="userMap" type="com.springboot.bean.User">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="avatar" column="avatar"/>
+
+
+    </resultMap>
+    
+    <sql id="queryCondition">
+        <where>
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="username != null and username != ''">
+				and name = #{name}
+			</if>
+			<if test="avatar != null and avatar != ''">
+				and avatar = #{avatar}
+			</if>
+
+        </where>
+    </sql>
+    	
+    <select id="getByMap" parameterType="map" resultMap="userMap">
+    	SELECT * FROM user
+		<include refid="queryCondition" />
+    </select>
+    
+    <select id="getById" parameterType="int" resultMap="userMap">
+    	SELECT * FROM user WHERE id =#{id}
+    </select>
+    
+    <insert id="create" parameterType="com.springboot.bean.User">
+        <selectKey resultType="int"  order="AFTER" keyProperty="id" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO user(
+			id,
+			username,
+			avatar
+		)VALUES(
+			#{id},
+			#{username},
+			#{avatar}
+		)
+    </insert>
+    
+    <update id="update" parameterType="com.springboot.bean.User">
+		UPDATE user SET
+						username = #{username},
+						avatar = #{avatar}
+		WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+    	DELETE FROM user WHERE id = #{id}
+    </delete>
+    
+</mapper>

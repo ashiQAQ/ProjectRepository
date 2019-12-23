@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.SellerMapper">
+
+    <resultMap type="com.springboot.bean.Seller" id="sellerMap">
+             <result property="id" column="id"/>
+             <result property="name" column="name"/>
+             <result property="description" column="description"/>
+             <result property="avatar" column="avatar"/>
+             <result property="deliveryTime" column="delivery_time"/>
+             <result property="score" column="score"/>
+             <result property="serviceScore" column="service_score"/>
+             <result property="foodScore" column="food_score"/>
+             <result property="rankRate" column="rank_rate"/>
+             <result property="minPrice" column="min_price"/>
+             <result property="deliveryPrice" column="delivery_price"/>
+             <result property="ratingCount" column="rating_count"/>
+             <result property="sellCount" column="sell_count"/>
+             <result property="bulletin" column="bulletin"/>
+
+             <association property="supports" resultMap="supportsMap"></association>
+             <association property="pictures"  resultMap="picturesMap"></association>
+             <association property="infos"  resultMap="infosMap"></association>
+
+    </resultMap>
+
+    <resultMap type="com.springboot.bean.Supports" id="supportsMap">
+        <result  property="type" column="type"/>
+        <result  property="description" column="supports_description"/>
+    </resultMap>
+    <resultMap type="com.springboot.bean.Pictures" id="picturesMap">
+        <result  property="url" column="url" />
+    </resultMap>
+    <resultMap type="com.springboot.bean.Infos" id="infosMap">
+        <result  property="content" column="description"/>
+    </resultMap>
+
+    <select id="queryObject" resultType="com.springboot.bean.Seller">
+		select
+		`id`,
+		`name`,
+		`description`,
+		`avatar`,
+		`delivery_time`,
+		`score`,
+		`service_score`,
+		`food_score`,
+		`rank_rate`,
+		`min_price`,
+		`delivery_price`,
+		`rating_count`,
+		`sell_count`,
+		`bulletin`
+		from seller
+		where id = #{id}
+	</select>
+    <select id="queryList" resultType="com.springboot.bean.Seller">
+        select
+        `id`,
+        `name`,
+        `description`,
+        `avatar`,
+        `delivery_time`,
+        `score`,
+        `service_score`,
+        `food_score`,
+        `rank_rate`,
+        `min_price`,
+        `delivery_price`,
+        `rating_count`,
+        `sell_count`,
+        `bulletin`
+        from seller
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+
+
+
+    <select id="queryList1" resultMap="sellerMap">
+        select
+            s.id,
+            s.name,
+            s.description,
+            s.avatar,
+            s.delivery_time,
+            s.score,
+            s.service_score,
+            s.food_score,
+            s.rank_rate,
+            s.min_price,
+            s.delivery_price,
+            s.rating_count,
+            s.sell_count,
+            s.bulletin,
+            p.url,
+            i.content,
+            su.type,
+            su.description as supports_description
+        from seller s,pictures p,infos i,supports su
+        where s.id = p.seller_id   and s.id=i.seller_id and s.id=su.seller_id
+
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from seller
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.springboot.bean.Seller" useGeneratedKeys="true" keyProperty="id">
+		insert into seller(
+                    `name`,
+        			`description`,
+        			`avatar`,
+        			`delivery_time`,
+        			`score`,
+        			`service_score`,
+        			`food_score`,
+        			`rank_rate`,
+        			`min_price`,
+        			`delivery_price`,
+        			`rating_count`,
+        			`sell_count`,
+        			`bulletin`)
+		values(
+                    #{name},
+        			#{description},
+        			#{avatar},
+        			#{deliveryTime},
+        			#{score},
+        			#{serviceScore},
+        			#{foodScore},
+        			#{rankRate},
+        			#{minPrice},
+        			#{deliveryPrice},
+        			#{ratingCount},
+        			#{sellCount},
+        			#{bulletin})
+	</insert>
+    <update id="update" parameterType="com.springboot.bean.Seller">
+        update seller
+        <set>
+                <if test="name != null">`name` = #{name}, </if>
+                <if test="description != null">`description` = #{description}, </if>
+                <if test="avatar != null">`avatar` = #{avatar}, </if>
+                <if test="deliveryTime != null">`delivery_time` = #{deliveryTime}, </if>
+                <if test="score != null">`score` = #{score}, </if>
+                <if test="serviceScore != null">`service_score` = #{serviceScore}, </if>
+                <if test="foodScore != null">`food_score` = #{foodScore}, </if>
+                <if test="rankRate != null">`rank_rate` = #{rankRate}, </if>
+                <if test="minPrice != null">`min_price` = #{minPrice}, </if>
+                <if test="deliveryPrice != null">`delivery_price` = #{deliveryPrice}, </if>
+                <if test="ratingCount != null">`rating_count` = #{ratingCount}, </if>
+                <if test="sellCount != null">`sell_count` = #{sellCount}, </if>
+                <if test="bulletin != null">`bulletin` = #{bulletin}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from seller where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from seller where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

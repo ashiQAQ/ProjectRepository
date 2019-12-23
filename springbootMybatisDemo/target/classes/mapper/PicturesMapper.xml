@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.PicturesMapper">
+
+    <resultMap type="com.springboot.bean.Pictures" id="picturesMap">
+             <result property="id" column="id"/>
+             <result property="sellerId" column="seller_id"/>
+             <result property="url" column="url"/>
+     </resultMap>
+
+    <select id="queryObject" resultType="com.springboot.bean.Pictures">
+		select
+		`id`,
+		`seller_id`,
+		`url`
+		from pictures
+		where id = #{id}
+	</select>
+
+    <select id="queryList" resultType="com.springboot.bean.Pictures">
+        select
+            `id`,
+            `seller_id`,
+            `url`
+        from pictures
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from pictures
+        WHERE 1=1
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.springboot.bean.Pictures"            useGeneratedKeys="true" keyProperty="id">
+		insert into pictures(`seller_id`,`url`)
+		values(#{sellerId},#{url})
+	</insert>
+    <update id="update" parameterType="com.springboot.bean.Pictures">
+        update pictures
+        <set>
+            <if test="sellerId != null">`seller_id` = #{sellerId}, </if>
+            <if test="url != null">`url` = #{url}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from pictures where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from pictures where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
