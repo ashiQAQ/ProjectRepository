@@ -7,5 +7,3 @@ build
 ├── webpack.base.conf.js // dev和prod的公共配置
 ├── webpack.dev.conf.js // dev环境的配置
 └── webpack.prod.conf.js // prod环境的配置
-
-https://segmentfault.com/a/1190000012472099
