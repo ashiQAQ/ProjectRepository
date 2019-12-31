@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09c1a2b6-b3c0-4b3c-bd61-406d8e4bb71a" name="Default Changelist" comment="Update README.md">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/developTips.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_40.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_48.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/springboot.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/springboot.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/springbootMybatisDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/springbootMybatisDemo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/developTips.md" beforeDir="false" afterPath="$PROJECT_DIR$/developTips.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,9 +29,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/developTips.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="600">
-                <caret line="24" column="66" selection-start-line="24" selection-start-column="66" selection-end-line="24" selection-end-column="66" />
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="683">
+                <caret line="43" selection-start-line="43" selection-end-line="43" />
               </first_editor>
               <second_editor />
             </state>
@@ -302,7 +296,7 @@
       <workItem from="1577200863191" duration="2024000" />
       <workItem from="1577265297224" duration="805000" />
       <workItem from="1577270732047" duration="1641000" />
-      <workItem from="1577336664981" duration="1462000" />
+      <workItem from="1577336664981" duration="2886000" />
     </task>
     <task id="LOCAL-00001" summary="Update README.md">
       <created>1577273883207</created>
@@ -329,7 +323,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37470000" />
+    <option name="totallyTimeSpent" value="38894000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -794,9 +788,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/developTips.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="600">
-            <caret line="24" column="66" selection-start-line="24" selection-start-column="66" selection-end-line="24" selection-end-column="66" />
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="683">
+            <caret line="43" selection-start-line="43" selection-end-line="43" />
           </first_editor>
           <second_editor />
         </state>

@@ -13,7 +13,7 @@
                     与MyBatis相似功能的框架有:
                     Hibernate:Hibernate是面向对象的，而MyBatis是面向关系的.Hibernate封装度更高,MyBatis写SQL更灵活
                     Spring Data JPA :作为Spring Data的子模块 JPA默认使用Hibernate作为ORM实现
-    (4)MySQL介绍:     关系型数据库的代表。
+    (4)MySQL介绍:   关系型数据库的代表。
                 关系型数据库: Oracle MySQL SQLite SQLServer  PostgreSQL MariaDB
                               优点:
                               1、易于维护：都是使用表结构，格式一致；
@@ -39,4 +39,5 @@
                               2、key-value型
                               3、列式数据库
                               4、图形数据库
-                    
+
+2.前后端开发接口约定
