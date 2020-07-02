@@ -46,7 +46,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.48</version><!-- 5.1.48 是截止2019/12/26 MySQL5.x最高版本的jar了-->
+            <version>8.0.16</version><!-- 8.0.16 是截止2019/12/26 MySQL5.x最高版本的jar了-->
         </dependency>
 
         <dependency>
